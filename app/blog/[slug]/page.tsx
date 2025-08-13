@@ -1,20 +1,31 @@
-// Đổi tên 'Params' thành 'Props' cho rõ ràng hơn (best practice)
-type Props = {
-  params: {
-    slug: string;
-  };
+import type { Metadata, ResolvingMetadata } from 'next';
+
+// 1. Định nghĩa type cho 'params' một cách riêng biệt và rõ ràng.
+type PageParams = {
+  slug: string;
 };
 
-export async function generateMetadata({ params }: Props) {
-  return { title: `Post: ${params.slug}` };
+// 2. Định nghĩa type cho props của trang.
+type Props = {
+  params: PageParams;
+};
+
+// 3. Áp dụng type 'Props' cho hàm generateMetadata.
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const slug = params.slug;
+  return {
+    title: `Post: ${slug}`,
+  };
 }
 
-// Áp dụng type 'Props' cho toàn bộ object props, và destructure 'params' từ đó
+// 4. Áp dụng type 'Props' cho component Page.
 export default function Page({ params }: Props) {
-  const { slug } = params;
   return (
     <>
-      <h1>Slug: {slug}</h1>
+      <h1>Slug: {params.slug}</h1>
       <p>HoleTex</p>
     </>
   );
