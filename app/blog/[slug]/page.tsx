@@ -63,6 +63,9 @@ export default async function Page({
       <p className="opacity-70">
         {new Date(post!.publishedAt).toLocaleDateString()}
       </p>
+      <p className="opacity-70">
+        {new Date(post!.publishedAt).toLocaleDateString()}
+      </p>
       <article dangerouslySetInnerHTML={{ __html: post!.html }} />
     </main>
   );
